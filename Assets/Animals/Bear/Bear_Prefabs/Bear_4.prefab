@@ -2058,6 +2058,8 @@ GameObject:
   - component: {fileID: 3734775969355451150}
   - component: {fileID: 6838346980850656719}
   - component: {fileID: 3034118609351193792}
+  - component: {fileID: 6129544531850861262}
+  - component: {fileID: 5918891866874309037}
   m_Layer: 0
   m_Name: Bear_4
   m_TagString: Untagged
@@ -2153,6 +2155,48 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.6, y: 1.65, z: 3}
   m_Center: {x: 0, y: 0.866, z: 0.17}
+--- !u!114 &6129544531850861262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962199819078159310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 1228599821
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &5918891866874309037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7962199819078159310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2f56e65b441df74b9418f22a78e455b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerControlller
+  ShowTopMostFoldoutHeaderGroup: 1
+  moveSpeed: 5
+  moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  cameraTransform: {fileID: 902859178042150215}
+  sensitivity: 20
 --- !u!1 &8002475675295336084
 GameObject:
   m_ObjectHideFlags: 0
