@@ -13,6 +13,8 @@ public class PlayerControlller : NetworkBehaviour
     public Transform cameraTransform;
     public float sensitivity = 2f;
     float xRotation = 0f;
+    float yRotation = 0f;
+    public InputActionReference lookAction;
 
     private NetworkVariable<Vector3> networkPosition =
         new NetworkVariable<Vector3>(default,
@@ -24,8 +26,10 @@ public class PlayerControlller : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        base.OnNetworkSpawn();
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezePositionY;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX;
+        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
 
         if (IsOwner)
         {
@@ -35,14 +39,16 @@ public class PlayerControlller : NetworkBehaviour
         }
         else
         {
-            cameraTransform.gameObject.SetActive(false);
-            enabled = false;
+            if (cameraTransform != null)
+                cameraTransform.gameObject.SetActive(false);
         }
 
     }
 
     void Update()
     {
+        if (!IsOwner) return;
+
         Camera();
     }
 
@@ -50,32 +56,29 @@ public class PlayerControlller : NetworkBehaviour
     {
         if (!IsOwner)
         {
-            Vector3 target = networkPosition.Value;
-            transform.position = Vector3.Lerp(transform.position, target, lerpSpeed);
+            transform.position = Vector3.Lerp(transform.position, networkPosition.Value, lerpSpeed);
             return;
         }
 
-        else
-        {
             Vector2 input = moveAction.action.ReadValue<Vector2>();
             Vector3 move = new Vector3(input.x, 0f, input.y) * moveSpeed;
             rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
             networkPosition.Value = rb.position;
-        }
     }
 
     void Camera()
     {
-        if (!IsOwner) return;
-
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
+        Vector2 cameraDirection = lookAction.action.ReadValue<Vector2>();
+        float mouseX = cameraDirection.x * sensitivity;
+        float mouseY = cameraDirection.y * sensitivity;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -80f, 80f);
 
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(Vector3.up * mouseX);
+        yRotation += mouseX;
+
+        cameraTransform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        //transform.Rotate(Vector3.up * mouseX);
     }
 }
 
