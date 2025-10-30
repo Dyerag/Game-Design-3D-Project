@@ -1,20 +1,27 @@
+using System;
 using System.Globalization;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControlller : NetworkBehaviour
+public class PlayerController : NetworkBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
     public InputActionReference moveAction; // Vector2 (WASD)
+    public InputActionReference sprintAction;
+    Vector2 moveInput = Vector2.zero;
 
     [Header("Camera")]
     public Transform cameraTransform;
+    public Transform cameraPivot;
     public float sensitivity = 2f;
+    public InputActionReference lookAction;
     float xRotation = 0f;
     float yRotation = 0f;
-    public InputActionReference lookAction;
+
+    [Header("Animation")]
+    public Animator animator;
 
     private NetworkVariable<Vector3> networkPosition =
         new NetworkVariable<Vector3>(default,
@@ -49,7 +56,8 @@ public class PlayerControlller : NetworkBehaviour
     {
         if (!IsOwner) return;
 
-        Camera();
+        CameraMovement();
+        moveInput = moveAction.action.ReadValue<Vector2>();
     }
 
     void FixedUpdate()
@@ -60,13 +68,28 @@ public class PlayerControlller : NetworkBehaviour
             return;
         }
 
-            Vector2 input = moveAction.action.ReadValue<Vector2>();
-            Vector3 move = new Vector3(input.x, 0f, input.y) * moveSpeed;
-            rb.linearVelocity = new Vector3(move.x, rb.linearVelocity.y, move.z);
-            networkPosition.Value = rb.position;
+        float pace = 1f;
+        if (sprintAction.action.IsPressed())
+            pace = 2f;
+
+        //Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y) * moveSpeed * pace;
+
+        Vector3 move = ZeroOutY(cameraTransform.forward) * moveInput.y + ZeroOutY(cameraTransform.right) * moveInput.x;
+        move.Normalize();
+
+        rb.linearVelocity = move * moveSpeed * pace + Vector3.up * rb.linearVelocity.y;
+
+        networkPosition.Value = rb.position;
+        animator.SetFloat("Move", rb.linearVelocity.magnitude);
     }
 
-    void Camera()
+    Vector3 ZeroOutY(Vector3 value)
+    {
+        value.y = 0f;
+        return value.normalized;
+    }
+
+    void CameraMovement()
     {
         Vector2 cameraDirection = lookAction.action.ReadValue<Vector2>();
         float mouseX = cameraDirection.x * sensitivity;
@@ -77,8 +100,8 @@ public class PlayerControlller : NetworkBehaviour
 
         yRotation += mouseX;
 
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        //transform.Rotate(Vector3.up * mouseX);
+        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        cameraPivot.rotation = Quaternion.Euler(0f, yRotation, 0f);
     }
 }
 
