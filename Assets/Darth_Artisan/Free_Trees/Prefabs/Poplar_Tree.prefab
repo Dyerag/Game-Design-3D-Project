@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3367454}
   - component: {fileID: 2393902}
   - component: {fileID: 6917741550471008258}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Poplar_Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}

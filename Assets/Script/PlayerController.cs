@@ -41,8 +41,6 @@ public class PlayerController : NetworkBehaviour
             //networkPosition.Value = rb.position;
             moveAction.action.Enable(); // just enable once here
             Cursor.lockState = CursorLockMode.Locked;
-            Debug.Log($"{OwnerClientId} Move param = {animator.GetFloat("Move")}");
-
         }
         else
         {

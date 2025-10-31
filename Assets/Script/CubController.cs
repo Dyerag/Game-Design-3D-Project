@@ -26,6 +26,8 @@ public class CubController : MonoBehaviour
 
     public Animator animator;
 
+    private NavMeshTriangulation navMeshData;
+
 
     private void Start()
     {
@@ -46,24 +48,21 @@ public class CubController : MonoBehaviour
             case State.Home: Home(); break;
         }
 
-
-        if (currentState != State.Home)
+        
+            
+        if (currentState == State.Home)
             return;
+
             float distToPlayer = Vector3.Distance(transform.position, player.position);
 
-            if (distToPlayer > maxFollowRange && currentState != )
+            if (distToPlayer > maxFollowRange)
             {
                 currentState = State.Wander;
             }
-
-
-            if (distToPlayer < fleeRange && currentState != State.Follow)
+            else if (distToPlayer < fleeRange && currentState != State.Follow)
             {
                 currentState = State.Flee;
             }
-
-
-        
 
         animator.SetFloat("Move", agent.velocity.magnitude);
 
@@ -91,7 +90,13 @@ public class CubController : MonoBehaviour
     }
     void Wander()
     {
-
+        if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
+        {
+            
+            
+        }
+            
+        
     }
 
     void Follow()

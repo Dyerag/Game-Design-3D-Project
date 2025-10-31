@@ -5,15 +5,16 @@ TagManager:
   serializedVersion: 3
   tags:
   - Den
+  - Home Zone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Terrain
   - Water
   - UI
-  - 
-  - 
+  - Tree
+  - Play Area
   - 
   - 
   - 
