@@ -23,26 +23,26 @@ public class PlayerController : NetworkBehaviour
     [Header("Animation")]
     public Animator animator;
 
-    private NetworkVariable<Vector3> networkPosition =
-        new NetworkVariable<Vector3>(default,
-            NetworkVariableReadPermission.Everyone,
-            NetworkVariableWritePermission.Owner);
+    //private NetworkVariable<Vector3> networkPosition =
+    //    new NetworkVariable<Vector3>(default,
+    //        NetworkVariableReadPermission.Everyone,
+    //        NetworkVariableWritePermission.Owner);
 
     Rigidbody rb;
-    private float lerpSpeed = 12f;
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
         rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotationX;
-        rb.constraints = RigidbodyConstraints.FreezeRotationZ;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         if (IsOwner)
         {
-            networkPosition.Value = rb.position;
+            //networkPosition.Value = rb.position;
             moveAction.action.Enable(); // just enable once here
             Cursor.lockState = CursorLockMode.Locked;
+            Debug.Log($"{OwnerClientId} Move param = {animator.GetFloat("Move")}");
+
         }
         else
         {
@@ -64,7 +64,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (!IsOwner)
         {
-            transform.position = Vector3.Lerp(transform.position, networkPosition.Value, lerpSpeed);
+            //transform.position = Vector3.Lerp(transform.position, networkPosition.Value, lerpSpeed);
             return;
         }
 
@@ -72,14 +72,16 @@ public class PlayerController : NetworkBehaviour
         if (sprintAction.action.IsPressed())
             pace = 2f;
 
-        //Vector3 move = new Vector3(moveInput.x, 0f, moveInput.y) * moveSpeed * pace;
-
         Vector3 move = ZeroOutY(cameraTransform.forward) * moveInput.y + ZeroOutY(cameraTransform.right) * moveInput.x;
         move.Normalize();
 
         rb.linearVelocity = move * moveSpeed * pace + Vector3.up * rb.linearVelocity.y;
 
-        networkPosition.Value = rb.position;
+        if (move.magnitude > 0.1f)
+            transform.rotation = Quaternion.LookRotation(ZeroOutY(rb.linearVelocity));
+
+
+        //networkPosition.Value = rb.position;
         animator.SetFloat("Move", rb.linearVelocity.magnitude);
     }
 

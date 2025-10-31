@@ -447,7 +447,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1183226788
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -548,6 +548,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2542345574173822326, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3157370912784708207, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3197175584523214924, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462611650000286766, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5875303490489053168, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -588,9 +604,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6146950954287163483, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 6347230786780637631, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
       propertyPath: m_Name
       value: Den
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347230786780637631, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 6681433141606183040, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7317704696299096443, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7907972994376988345, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8110798748416936602, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982099727294053057, guid: d525513516ec4e545a55f2bb2904b76e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -701,6 +745,7 @@ GameObject:
   - component: {fileID: 1873783184}
   - component: {fileID: 1873783186}
   - component: {fileID: 1873783185}
+  - component: {fileID: 1873783187}
   m_Layer: 0
   m_Name: Network Manager
   m_TagString: Untagged
@@ -790,10 +835,23 @@ MonoBehaviour:
     NetworkTopology: 0
     UseCMBService: 0
     AutoSpawnPlayerPrefabClientSide: 1
+    NetworkMessageMetrics: 1
     NetworkProfilingMetrics: 1
     OldPrefabList: []
   RunInBackground: 1
   LogLevel: 1
+--- !u!114 &1873783187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873783183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fc5fe331baa33d40a07e74cfce7ee8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkStart
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
