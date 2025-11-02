@@ -1,1 +1,1 @@
-![Game Image](Ursa Image.PNG)
+![Game Image](Ursa%20Image.png)
